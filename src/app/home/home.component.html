@@ -1,0 +1,15 @@
+<button routerLink="/contador">Contador</button>
+<button routerLink="/todos">Todos</button>
+
+<h1>Início</h1>
+
+<button (click)="incrementar()">Incrementar</button>
+<button (click)="decrementar()">Decrementar</button>
+<button (click)="carretarTodos()">Carregar Todos</button>
+
+<ul>
+  <li>Contador : {{counter$ | async}}</li>
+  <li *ngFor="let todo of todos$ | async">
+    {{todo.id}} - {{todo.title}} - {{todo.completed}}
+  </li>
+</ul>
