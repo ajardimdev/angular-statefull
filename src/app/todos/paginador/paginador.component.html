@@ -1,0 +1,29 @@
+<div>
+
+  <select
+    [value]="limite"
+    (change)="onLimitChange($event)"
+    [disabled]="((todos$ | async) ?? []).length === 0"
+    name="quantidade"
+    id="quantidade"
+    >
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="50">50</option>
+    <option value="100">100</option>
+  </select>
+
+  <button
+    [disabled]="((todos$ | async) ?? []).length === 0 || pagina === 1"
+    (click)="paginaAnterior($event)"
+    >
+    << Página anterior
+  </button>
+
+  <button
+    [disabled]="((todos$ | async) ?? []).length === 0"
+    (click)="proximaPagina($event)"
+    >
+    Próxima página >>
+  </button>
+</div>
