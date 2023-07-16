@@ -1,12 +1,9 @@
-<button routerLink="/">Início</button>
-<button routerLink="/contador">Contador</button>
 
-<h1>Lista de Todos</h1>
+<div *ngIf="!!(todos$ | async)" class="container">
+  <app-cabecalho></app-cabecalho>
+  <app-filtros></app-filtros>
 
-<button (click)="carretarTodos()">Carregar Todos</button>
-
-<ul>
-  <li *ngFor="let todo of todos$ | async">
-    {{todo.id}} - {{todo.title}} - {{todo.completed}}
-  </li>
-</ul>
+  <app-paginador></app-paginador>
+  <app-resultados></app-resultados>
+  <app-paginador></app-paginador>
+</div>

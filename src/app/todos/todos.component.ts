@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IGridState, carregarTodos } from './todos.state';
-import { Observable, map } from 'rxjs';
-import { ITodo } from './todos.model';
+import { ITodoState, carregarTodos } from './todos.state';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-grid',
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.sass']
 })
-export class GridComponent {
-  constructor(private readonly store: Store<{ grid: IGridState }>) {}
+export class TodosComponent implements OnInit {
+  constructor(private readonly store: Store<{ todos: ITodoState }>) {}
 
-  todos$: Observable<ITodo[]> = this.store.select('grid')
-    .pipe(map(({ todos }) => todos))
+  todos$ = this.store.select('todos').pipe(map(({ todos }) => todos))
 
-  carretarTodos(): void {
-    this.store.dispatch(carregarTodos())
+  ngOnInit(): void {
+    this.store.dispatch(carregarTodos({ limit: 10, page: 1 }));
   }
+
 }

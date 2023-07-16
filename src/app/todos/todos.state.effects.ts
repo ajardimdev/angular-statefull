@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { IGridState, carregarTodos, carregarTodosSucesso } from './todos.state';
+import { ITodoState, carregarTodos, carregarTodosSucesso } from './todos.state';
 import { map, of, switchMap, withLatestFrom } from 'rxjs';
 import { ITodo } from './todos.model';
-import { GridService } from './todos.service';
+import { TodosService } from './todos.service';
 import { Store } from '@ngrx/store';
 
 @Injectable({
@@ -13,8 +12,8 @@ import { Store } from '@ngrx/store';
 export class GridEffectsService {
   constructor(
     private readonly actions$: Actions,
-    private readonly store: Store<{ grid: IGridState }>,
-    private readonly gridService: GridService,
+    private readonly store: Store<{ todos: ITodoState }>,
+    private readonly gridService: TodosService,
   ) { }
 
   carregaTodos = createEffect(
@@ -22,15 +21,15 @@ export class GridEffectsService {
       .pipe(
         ofType(carregarTodos),
         withLatestFrom(
-          this.store.select('grid')
-            .pipe(map(({ todos }) => todos))
+          this.store.select('todos')
+            .pipe(map((state) => state))
         ),
-        switchMap(([_, todos]) => {
-          if (todos.length === 0) {
-            return this.gridService.carregarTodos()
-              .pipe(map((todos:ITodo[]) => carregarTodosSucesso(todos)))
+        switchMap(([{request}, {todos, page, limit}]) => {
+          if (todos.length === 0 || request.page !== page || request.limit !== limit) {
+            return this.gridService.carregarTodos(request)
+              .pipe(map((todos:ITodo[]) => carregarTodosSucesso({ todos, limit: request.limit, page: request.page })))
           }
-          return of(carregarTodosSucesso(todos))
+          return of(carregarTodosSucesso({todos, limit, page}))
         })
       )
     )

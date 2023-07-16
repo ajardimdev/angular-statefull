@@ -1,0 +1,16 @@
+
+<table>
+  <thead>
+    <th class="id">Id</th>
+    <th class="title">Título</th>
+    <th class="status">Status</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let todo of todos$ |async">
+      <td class="id">{{todo.id}}</td>
+      <td class="title">{{ todo.title }}</td>
+      <td class="status">{{ todo.completed }}</td>
+    </tr>
+  </tbody>
+</table>
+
