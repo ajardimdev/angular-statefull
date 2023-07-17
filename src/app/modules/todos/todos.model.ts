@@ -8,4 +8,7 @@ export interface ITodo{
 export interface ITodoRequest {
   limit: number
   page: number
+  title_like?: string
+  done_like?: string
+  revalidate?: boolean
 }

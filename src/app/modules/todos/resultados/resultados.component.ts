@@ -13,5 +13,7 @@ export class ResultadosComponent {
 
   todos$ = this.store.select('todos')
     .pipe(
-      map(({ todos }) => todos))
+      map(({ todos }) => todos
+        .map(todo => ({
+          ...todo, completed: todo.completed ? 'Concluído' : 'Pendente' }))))
 }

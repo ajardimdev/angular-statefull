@@ -1,0 +1,11 @@
+<div class="form-field">
+  <label [attr.for]="id">
+    {{label}}
+  </label>
+
+  <input
+    [(ngModel)]="value"
+    [id]="id"
+    [type]="type"
+    [readOnly]="!!isReadOnly" />
+</div>

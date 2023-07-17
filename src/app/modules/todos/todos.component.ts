@@ -14,7 +14,7 @@ export class TodosComponent implements OnInit {
   todos$ = this.store.select('todos').pipe(map(({ todos }) => todos))
 
   ngOnInit(): void {
-    this.store.dispatch(carregarTodos({ limit: 10, page: 1 }));
+    this.store.dispatch(carregarTodos({ limit: 5, page: 1, done_like: 'false' }));
   }
 
 }

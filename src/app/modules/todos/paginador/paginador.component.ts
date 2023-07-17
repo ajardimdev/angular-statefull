@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ITodoState, carregarTodos } from '../todos.state';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 
 @Component({
   selector: 'app-paginador',
@@ -12,11 +12,13 @@ export class PaginadorComponent {
   constructor(private readonly store: Store<{todos:ITodoState}>) {}
 
   todos$ = this.store.select('todos')
-    .pipe(map(({todos, page, limit}) => {
-      this.pagina = page
-      this.limite = limit
-      return todos
-    }))
+    .pipe(
+      tap(({ limit }) => {
+        if (limit > 0) {
+          this.limite = limit
+        }
+      }),
+      map(({todos}) => todos))
 
   pagina: number = 1
   limite: number = 10

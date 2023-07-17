@@ -24,10 +24,23 @@ export class GridEffectsService {
           this.store.select('todos')
             .pipe(map((state) => state))
         ),
-        switchMap(([{request}, {todos, page, limit}]) => {
-          if (todos.length === 0 || request.page !== page || request.limit !== limit) {
+        switchMap(([{ request }, {todos, page, limit, title_like, done_like}]) => {
+          const shouldRevalidate =
+            request.page !== page ||
+            request.limit !== limit ||
+            request.title_like !== title_like ||
+            request.done_like !== done_like ||
+            request.revalidate
+
+          if (shouldRevalidate) {
             return this.gridService.carregarTodos(request)
-              .pipe(map((todos:ITodo[]) => carregarTodosSucesso({ todos, limit: request.limit, page: request.page })))
+              .pipe(map((todos:ITodo[]) => carregarTodosSucesso({
+                todos,
+                limit: request.limit,
+                page: request.page,
+                title_like: request.title_like,
+                done_like: request.done_like
+              })))
           }
           return of(carregarTodosSucesso({todos, limit, page}))
         })
