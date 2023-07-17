@@ -1,0 +1,18 @@
+<form [formGroup]="formulario" (ngSubmit)="carregarTodos($event)">
+  <app-input-field
+    id="titulo"
+    label="Título:"
+    formControlName="titulo"
+    >
+  </app-input-field>
+
+  <app-select-field
+    id="titulo"
+    label="Status:"
+    formControlName="status"
+    [options]="statusOptions"
+    >
+  </app-select-field>
+
+  <input [disabled]="!formulario.valid" type="submit" value="Buscar Todos" />
+</form>

@@ -5,6 +5,8 @@ export interface ITodoState {
   todos: ITodo[]
   page: number
   limit: number
+  title_like?: string
+  done_like?: string
 }
 
 const gridInitialState: ITodoState = {

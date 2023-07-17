@@ -8,6 +8,7 @@ import { ResultadosComponent } from './resultados/resultados.component';
 import { CabecalhoComponent } from './cabecalho/cabecalho.component';
 import { PaginadorComponent } from './paginador/paginador.component';
 import { TodosService } from './todos.service';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { TodosService } from './todos.service';
   imports: [
     CommonModule,
     TodosRoutingModule,
+    SharedModule
   ],
   providers: [TodosService]
 })

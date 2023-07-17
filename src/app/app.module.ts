@@ -5,11 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { todosReducer } from './todos/todos.state';
+import { todosReducer } from './modules/todos/todos.state';
 import { EffectsModule } from '@ngrx/effects';
-import { GridEffectsService } from './todos/todos.state.effects';
+import { GridEffectsService } from './modules/todos/todos.state.effects';
 import { HttpClientModule } from '@angular/common/http';
-import { TodosModule } from './todos/todos.module';
+import { TodosModule } from './modules/todos/todos.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
