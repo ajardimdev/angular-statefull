@@ -51,5 +51,18 @@ export class FiltrosComponent {
         title_like,
         done_like
       }))
+
+    }
+  cleannup(event: Event): void {
+    event.preventDefault()
+
+    this.formulario.reset({
+      titulo: '',
+      status: 'false',
+      limit: this.formulario.get('limit')?.value ?? 5,
+    })
+    this.carregarTodos(event)
+
+    this.carregarTodos(event)
   }
 }
