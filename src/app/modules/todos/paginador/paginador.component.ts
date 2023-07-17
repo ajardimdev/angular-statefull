@@ -13,19 +13,28 @@ export class PaginadorComponent {
 
   todos$ = this.store.select('todos')
     .pipe(
-      tap(({ limit }) => {
+      tap(({ limit, done_like, title_like }) => {
         if (limit > 0) {
           this.limite = limit
+          this.done_like = done_like ?? 'false'
+          this.title_like = title_like ?? ''
         }
       }),
       map(({todos}) => todos))
 
   pagina: number = 1
   limite: number = 10
+  done_like: string = 'false'
+  title_like: string = ''
 
   carregarTodos = () => {
     this.store.dispatch(
-      carregarTodos({ page: this.pagina, limit: this.limite }))
+      carregarTodos({
+        page: this.pagina,
+        limit: this.limite,
+        done_like: this.done_like,
+        title_like: this.title_like
+      }))
   }
 
   onLimitChange = (event: Event) => {
